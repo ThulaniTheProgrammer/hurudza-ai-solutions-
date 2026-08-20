@@ -49,47 +49,66 @@ if (rotatorWords.length) {
   }, 2400);
 }
 
-/* ---------- Hero carousel ---------- */
-const track = document.getElementById('carouselTrack');
-const slides = track ? Array.from(track.querySelectorAll('.carousel__slide')) : [];
-const dotsWrap = document.getElementById('carouselDots');
-const prevBtn = document.getElementById('carouselPrev');
-const nextBtn = document.getElementById('carouselNext');
+/* ---------- Reusable carousel (hero + story gallery) ---------- */
+function initCarousel({ trackId, slideClass, dotsId, prevId, nextId, interval = 4500 }) {
+  const track = document.getElementById(trackId);
+  const slides = track ? Array.from(track.querySelectorAll(slideClass)) : [];
+  const dotsWrap = document.getElementById(dotsId);
+  const prevBtn = document.getElementById(prevId);
+  const nextBtn = document.getElementById(nextId);
 
-let current = 0;
-let autoplay;
+  if (!slides.length) return;
 
-function renderDots() {
-  dotsWrap.innerHTML = '';
-  slides.forEach((_, i) => {
-    const dot = document.createElement('button');
-    dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
-    if (i === current) dot.classList.add('is-active');
-    dot.addEventListener('click', () => goTo(i));
-    dotsWrap.appendChild(dot);
-  });
-}
+  let current = 0;
+  let autoplay;
 
-function goTo(index) {
-  slides[current].classList.remove('is-active');
-  dotsWrap.children[current]?.classList.remove('is-active');
-  current = (index + slides.length) % slides.length;
-  slides[current].classList.add('is-active');
-  dotsWrap.children[current]?.classList.add('is-active');
-}
+  function renderDots() {
+    dotsWrap.innerHTML = '';
+    slides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+      if (i === current) dot.classList.add('is-active');
+      dot.addEventListener('click', () => goTo(i));
+      dotsWrap.appendChild(dot);
+    });
+  }
 
-function startAutoplay() {
-  clearInterval(autoplay);
-  autoplay = setInterval(() => goTo(current + 1), 4500);
-}
+  function goTo(index) {
+    slides[current].classList.remove('is-active');
+    dotsWrap.children[current]?.classList.remove('is-active');
+    current = (index + slides.length) % slides.length;
+    slides[current].classList.add('is-active');
+    dotsWrap.children[current]?.classList.add('is-active');
+  }
 
-if (slides.length) {
+  function startAutoplay() {
+    clearInterval(autoplay);
+    autoplay = setInterval(() => goTo(current + 1), interval);
+  }
+
   renderDots();
   startAutoplay();
 
-  nextBtn.addEventListener('click', () => { goTo(current + 1); startAutoplay(); });
-  prevBtn.addEventListener('click', () => { goTo(current - 1); startAutoplay(); });
+  nextBtn?.addEventListener('click', () => { goTo(current + 1); startAutoplay(); });
+  prevBtn?.addEventListener('click', () => { goTo(current - 1); startAutoplay(); });
 }
+
+initCarousel({
+  trackId: 'carouselTrack',
+  slideClass: '.carousel__slide',
+  dotsId: 'carouselDots',
+  prevId: 'carouselPrev',
+  nextId: 'carouselNext',
+});
+
+initCarousel({
+  trackId: 'storyGalleryTrack',
+  slideClass: '.story__gallery-slide',
+  dotsId: 'storyGalleryDots',
+  prevId: 'storyGalleryPrev',
+  nextId: 'storyGalleryNext',
+  interval: 5000,
+});
 
 /* ---------- Scroll reveal ---------- */
 const revealEls = document.querySelectorAll('.reveal');
