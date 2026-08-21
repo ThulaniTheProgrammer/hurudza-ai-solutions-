@@ -469,34 +469,83 @@
           </ul>
         </div>
 
-        <form class="contact__form reveal" id="contactForm">
-          <div class="form__row">
-            <label>
-              <span>Name</span>
-              <input type="text" name="name" required placeholder="Your name" />
-            </label>
-            <label>
-              <span>Email</span>
-              <input type="email" name="email" required placeholder="you@company.com" />
-            </label>
-          </div>
-          <label>
-            <span>I'm interested in</span>
-            <select name="interest">
-              <option>AI Audit</option>
-              <option>AI Consultation</option>
-              <option>AI Boot Camps</option>
-              <option>Hiring an AI Employee</option>
-              <option>Something else</option>
-            </select>
-          </label>
-          <label>
-            <span>Message</span>
-            <textarea name="message" rows="4" required placeholder="Tell us a bit about what you need"></textarea>
-          </label>
-          <button type="submit" class="btn btn--primary">Send message</button>
-          <p class="form__note" id="formNote" role="status"></p>
-        </form>
+       <form
+  class="contact__form reveal"
+  id="contactForm"
+  action="https://formsubmit.co/frankmakeba0@gmail.com"
+  method="POST"
+>
+  <input
+    type="hidden"
+    name="_subject"
+    value="New Hurudza AI Website Enquiry"
+  />
+
+  <input
+    type="hidden"
+    name="_template"
+    value="table"
+  />
+
+  <input
+    type="hidden"
+    name="_captcha"
+    value="true"
+  />
+
+  <div class="form__row">
+    <label>
+      <span>Name</span>
+      <input
+        type="text"
+        name="name"
+        required
+        placeholder="Your name"
+      />
+    </label>
+
+    <label>
+      <span>Email</span>
+      <input
+        type="email"
+        name="email"
+        required
+        placeholder="you@company.com"
+      />
+    </label>
+  </div>
+
+  <label>
+    <span>I'm interested in</span>
+    <select name="interest">
+      <option value="AI Audit">AI Audit</option>
+      <option value="AI Consultation">AI Consultation</option>
+      <option value="AI Boot Camps">AI Boot Camps</option>
+      <option value="Hiring an AI Employee">Hiring an AI Employee</option>
+      <option value="Something else">Something else</option>
+    </select>
+  </label>
+
+  <label>
+    <span>Message</span>
+    <textarea
+      name="message"
+      rows="4"
+      required
+      placeholder="Tell us a bit about what you need"
+    ></textarea>
+  </label>
+
+  <button type="submit" class="btn btn--primary">
+    Send message
+  </button>
+
+  <p
+    class="form__note"
+    id="formNote"
+    role="status"
+  ></p>
+</form>
       </div>
     </section>
   </main>
